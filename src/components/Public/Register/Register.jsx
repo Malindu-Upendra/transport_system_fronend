@@ -5,6 +5,7 @@ import {Form,Button} from "react-bootstrap";
 import axios from "axios";
 import Modal from 'react-bootstrap/Modal'
 import Payment from "../../Passenger/Payment/Payment";
+import { withRouter } from "react-router";
 
 const MyGrid1 = styled(Grid)({
     backgroundColor:"white",
@@ -205,4 +206,4 @@ export class Register extends Component {
 
     }
 }
-export default Register;
+export default withRouter(Register);

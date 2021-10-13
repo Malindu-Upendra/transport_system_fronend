@@ -4,6 +4,7 @@ import { Space, Typography } from "antd";
 import Search from "antd/es/input/Search";
 import decode from "jwt-decode";
 import axios from "axios";
+import { withRouter } from "react-router";
 
 class Homepage extends Component {
 
@@ -91,4 +92,4 @@ class Homepage extends Component {
     }
 }
 
-export default Homepage;
+export default withRouter(Homepage);

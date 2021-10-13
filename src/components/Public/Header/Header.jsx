@@ -1,69 +1,98 @@
-import { Component } from "react";
+import React, { useEffect } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import decode from "jwt-decode";
+// import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
 
-class Header extends Component {
+const Header = () => {
+  //   state = {
+  //     user: "",
+  //   };
 
-    state = {
-        user: ''
+  const [user, setUser] = React.useState("");
+
+  const history = useHistory();
+
+  //   static propTypes = {
+  //     match: PropTypes.object.isRequired,
+  //     location: PropTypes.object.isRequired,
+  //     history: PropTypes.object.isRequired,
+  //   };
+
+  const handleLogout = () => {
+    sessionStorage.clear();
+    console.log("clicked");
+    history.push("/");
+    window.location.reload(false)
+  };
+
+  useEffect(() => {
+    if (sessionStorage.token) {
+      setUser(decode(sessionStorage.token).position);
+    } else {
+      setUser("guest");
     }
+  }, []);
 
-    handleLogout = () => {
-        sessionStorage.clear();
-        window.location = "https://malindu-upendra.github.io/Transport_system_FrontEnd";
-    }
+  //   componentDidMount = () => {
+  //     if (sessionStorage.token) {
+  //       this.setState({ user: decode(sessionStorage.token).position });
+  //     } else {
+  //       this.setState({ user: "guest" });
+  //     }
+  //   };
 
-    componentDidMount = () => {
-        if (sessionStorage.token) {
-            this.setState({ user: decode(sessionStorage.token).position });
-        } else {
-            this.setState({ user: 'guest' });
-        }
-    }
-
-    render() {
-        return (
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-                <Container>
-                    <Navbar.Brand href="#home">
-                        <img
-                            src="/images/logoo.jpg"
-                            width="40"
-                            height="40"
-                            className="d-inline-block align-top"
-                            alt="React Bootstrap logo"
-                        />
-                    </Navbar.Brand>
-                    <Navbar.Brand href="https://malindu-upendra.github.io/Transport_system_FrontEnd">Transport System</Navbar.Brand>
-                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                    <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav className="me-auto">
-                            {this.state.user === 'guest' ?
-                                <Nav.Link href="https://malindu-upendra.github.io/Transport_system_FrontEnd">Routes</Nav.Link>
-                                : this.state.user === 'passenger' ? <>
-                                    <Nav.Link href="https://malindu-upendra.github.io/Transport_system_FrontEnd">Routes</Nav.Link>
-                                    <Nav.Link href="https://malindu-upendra.github.io/Transport_system_FrontEnd/passenger/bookingHistory">Booking History</Nav.Link>
-                                </>
-                                    : this.state.user === 'inspector' &&
-                                    <>
-                                        <Nav.Link href="https://malindu-upendra.github.io/Transport_system_FrontEnd/qr_scanner">Scanner</Nav.Link>
-                                    </>}
-                        </Nav>
-                        <Nav>
-                            {this.state.user === 'guest' ?
-                                <Nav.Link href="https://malindu-upendra.github.io/Transport_system_FrontEnd/login">Login</Nav.Link>
-                                : this.state.user === 'passenger' ?
-                                    <>
-                                        <Nav.Link onClick={this.handleLogout}>Logout</Nav.Link>
-                                        <Nav.Link href="https://malindu-upendra.github.io/Transport_system_FrontEnd/passenger/account">Account</Nav.Link>
-                                    </>
-                                    : this.state.user === 'inspector' && <Nav.Link onClick={this.handleLogout}>Logout</Nav.Link>}
-                        </Nav>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar >
-        )
-    }
-}
+  return (
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Container>
+        <Navbar.Brand href="#home">
+          <img
+            src="/images/logoo.jpg"
+            width="40"
+            height="40"
+            className="d-inline-block align-top"
+            alt="React Bootstrap logo"
+          />
+        </Navbar.Brand>
+        <Navbar.Brand href="/">Transport System</Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto">
+            {user === "guest" ? (
+              <Nav.Link href="/">Routes</Nav.Link>
+            ) : user === "passenger" ? (
+              <>
+                <Nav.Link href="/">Routes</Nav.Link>
+                <Nav.Link href="/passenger/bookingHistory">
+                  Booking History
+                </Nav.Link>
+              </>
+            ) : (
+              user === "inspector" && (
+                <>
+                  <Nav.Link href="/qr_scanner">Scanner</Nav.Link>
+                </>
+              )
+            )}
+          </Nav>
+          <Nav>
+            {user === "guest" ? (
+              <Nav.Link href="/login">Login</Nav.Link>
+            ) : user === "passenger" ? (
+              <>
+                <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+                <Nav.Link href="/passenger/account">Account</Nav.Link>
+              </>
+            ) : (
+              user === "inspector" && (
+                <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+              )
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  );
+};
 
 export default Header;

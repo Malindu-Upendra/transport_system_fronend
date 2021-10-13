@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Container,Form,Button} from "react-bootstrap";
 import {Card} from "@material-ui/core"
 import axios from "axios";
+import { withRouter } from "react-router";
 
 export class Login extends Component {
 
@@ -90,4 +91,4 @@ export class Login extends Component {
         )
     }
 }
-export default Login
+export default withRouter(Login)
