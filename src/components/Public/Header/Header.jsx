@@ -23,7 +23,7 @@ const Header = () => {
     sessionStorage.clear();
     console.log("clicked");
     history.push("/");
-    window.location.reload(false)
+    window.location.reload(false);
   };
 
   useEffect(() => {
@@ -67,12 +67,10 @@ const Header = () => {
                   Booking History
                 </Nav.Link>
               </>
-            ) : (
-              user === "inspector" && (
-                <>
-                  <Nav.Link href="/qr_scanner">Scanner</Nav.Link>
-                </>
-              )
+            ) : user === "inspector" && (
+              <>
+                <Nav.Link href="/qr_scanner">Scanner</Nav.Link>
+              </>
             )}
           </Nav>
           <Nav>
@@ -84,7 +82,7 @@ const Header = () => {
                 <Nav.Link href="/passenger/account">Account</Nav.Link>
               </>
             ) : (
-              user === "inspector" && (
+              user === "inspector" || "transport manager" && (
                 <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
               )
             )}

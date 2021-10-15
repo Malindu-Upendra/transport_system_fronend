@@ -7,7 +7,7 @@ class TransportMPaths extends Component{
         return(
             <Router>
                 <Switch>
-                    <Route path="/TransportManager/ManageDetails" component={ManageDetails} exact/>
+                    <Route path="/" component={ManageDetails} exact/>
                 </Switch>
             </Router>
         )
