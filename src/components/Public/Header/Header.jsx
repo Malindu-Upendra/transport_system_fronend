@@ -81,11 +81,13 @@ const Header = () => {
                 <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
                 <Nav.Link href="/passenger/account">Account</Nav.Link>
               </>
-            ) : (
-              user === ("inspector" || "transport manager") && (
+            ) : 
+              user === "inspector" ? (
+                <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+              ) : user === "transport manager" && (
                 <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
               )
-            )}
+            }
           </Nav>
         </Navbar.Collapse>
       </Container>
