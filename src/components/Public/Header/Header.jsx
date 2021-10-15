@@ -82,7 +82,7 @@ const Header = () => {
                 <Nav.Link href="/passenger/account">Account</Nav.Link>
               </>
             ) : (
-              user === "inspector" || "transport manager" && (
+              user === ("inspector" || "transport manager") && (
                 <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
               )
             )}
